@@ -1,16 +1,13 @@
 import logo from './logo.svg';
 import './App.css';
-import Navbar from './Page/Components/Navbar/Navbar';
-import Header from './Page/Components/Header/Header';
-import BillingTable from './Page/Components/BillingTable/BillingTable';
+import Main from './Page/Layout/Main';
+
 
 
 function App() {
   return (
     <div className="App">
-      <Navbar></Navbar>
-      <Header></Header>
-      <BillingTable></BillingTable>
+      <Main> </Main>
     </div>
   );
 }
