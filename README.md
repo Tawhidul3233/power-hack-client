@@ -1,1 +1,1 @@
-
+Unfortunately at the last minute there was a mess with the JWT due to which the JWT could not be authenticated. Overall trying hard enough to do everything. A little more time, I could overcome everything.
