@@ -5,6 +5,7 @@ import { Toaster, toast } from 'react-hot-toast';
 const AddBillingModal = (sendbill) => {
      // console.log(bill.email)
      // const [data, setdata] = useState([])
+     // create modal to add bills in database
      const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
      const [another, setAnother] = useState(false)
@@ -29,7 +30,8 @@ const AddBillingModal = (sendbill) => {
           }
 
           setLoading(true)
-          fetch('http://localhost:5000/api/add-billing', {
+          // fetch data and post billing list in mongodb
+          fetch('https://power-hack-server-green.vercel.app/api/add-billing', {
                method: 'POST',
                headers: {
                     'content-type': 'application/json'

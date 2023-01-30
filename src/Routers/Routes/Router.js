@@ -6,6 +6,7 @@ import Login from "../../Page/Login/Login";
 import Register from "../../Page/Register/Register";
 
 
+// create browsing router using react router dom
 export const router = createBrowserRouter([
      {
           path:'/',
@@ -27,6 +28,7 @@ export const router = createBrowserRouter([
                     element:<Header></Header>
                },
                {
+                    // This is the error page if user click wrong link than this page show
                     path:'*',
                     element: <div className="text-center ">
                          <h1 className="text-3xl font-semibold my-5"> This page not found </h1>

@@ -4,7 +4,7 @@ import AddBillingModal from '../AddBillingModal/AddBillingModal';
 
 const Paiganition = ({postPerPage, totalPost, paginate,number }) => {
   const pageNumber = [];
-  
+  // create paignation 
   for(let i = 1 ; i <= Math.ceil(totalPost / postPerPage); i++){
     pageNumber.push(i)
   }

@@ -13,14 +13,16 @@ const BillingTable = ({ search }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage] = useState(10);
 
+  // loaded data for bongodb billing list
   useEffect(() => {
     setLoading(true)
-    fetch('http://localhost:5000/api/billing-list')
+    fetch('https://power-hack-server-green.vercel.app/api/billing-list')
       .then(res => res.json())
       .then(data => setBills(data))
     setLoading(false)
   }, [bills])
 
+  // calculation paiganition 
   const indexOfLastPost = currentPage * postPerPage;
   const indexOfFirstPost = indexOfLastPost - postPerPage;
   const currentPost = bills.slice(indexOfFirstPost, indexOfLastPost);
@@ -28,10 +30,11 @@ const BillingTable = ({ search }) => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
 
+  // Delete click Handler and delete bills
   const deleteItem = (id) => {
     const agree = window.confirm(" Are You sure you wnat to delete?")
     if (agree) {
-      fetch(`http://localhost:5000/api/delete-billing/${id}`,
+      fetch(`https://power-hack-server-green.vercel.app/api/delete-billing/${id}`,
         {
           method: 'DELETE',
         })

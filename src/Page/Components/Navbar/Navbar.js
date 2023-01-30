@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
-
+     // create navbar using tailwind css nad javascript
      const [bills, setBills] = useState([])
      useEffect(() => {
-          fetch('http://localhost:5000/api/billing-list')
+          fetch('https://power-hack-server-green.vercel.app/api/billing-list')
                .then(res => res.json())
                .then(data => setBills(data))
      }, [bills])
 
+     // Total paid amoutn sum
      const sum = bills.reduce((total, current) => total + parseInt(current.amount), 0);
 
      return (

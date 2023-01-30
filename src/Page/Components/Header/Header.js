@@ -6,6 +6,7 @@ import BillingTable from '../BillingTable/BillingTable';
 
 const Header = () => {
 
+  // This is the header page create search bar and add bill button
   const [search, setSearch] = useState('')
 
 

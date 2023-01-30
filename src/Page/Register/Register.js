@@ -4,6 +4,7 @@ import { toast } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
+  // using react hook form build register form
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const navigate = useNavigate()
 
@@ -19,7 +20,8 @@ const Register = () => {
       email,
     }
 
-    fetch('http://localhost:5000/api/registration', {
+    // create user and push user information to mongodb
+    fetch('https://power-hack-server-green.vercel.app/api/registration', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
