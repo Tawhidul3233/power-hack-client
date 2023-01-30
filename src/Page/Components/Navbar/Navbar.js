@@ -3,12 +3,11 @@ import React, { useEffect, useState } from 'react';
 const Navbar = () => {
 
      const [bills, setBills] = useState([])
-     console.log(bills)
      useEffect(() => {
           fetch('http://localhost:5000/billing-list')
                .then(res => res.json())
                .then(data => setBills(data))
-     }, [bills])
+     }, [])
 
      const sum = bills.reduce((total, current) => total + parseInt(current.amount), 0);
 

@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import AddBillingModal from '../AddBillingModal/AddBillingModal';
 
-const BillingTable = () => {
+const BillingTable = ({ search }) => {
+  
+  console.log(search)
 
   const [bills, setBills] = useState([])
 
@@ -10,7 +12,9 @@ const BillingTable = () => {
     fetch('http://localhost:5000/billing-list')
       .then(res => res.json())
       .then(data => setBills(data))
-  }, [bills])
+  }, [])
+
+
 
   const deleteItem = (id) => {
     const agree = window.confirm(" Are You sure you wnat to delete?")
@@ -51,7 +55,9 @@ const BillingTable = () => {
         <tbody>
           {
 
-            bills.map(bill => <tr key={bill._id}>
+            bills.filter((bill) => {
+              return search === ' ' ? bill : bill.name.toLowerCase().includes(search) || bill.email.toLowerCase().includes(search) || bill.phone.includes(search)
+            }).map(bill => <tr key={bill._id}>
               <td>Billing id</td>
               <td>{bill?.name}</td>
               <td>{bill?.email}</td>

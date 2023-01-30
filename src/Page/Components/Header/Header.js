@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import AddBillingModal from '../AddBillingModal/AddBillingModal';
+import BillingTable from '../BillingTable/BillingTable';
 
 const Header = () => {
 
@@ -16,17 +17,18 @@ const Header = () => {
     .catch(err => console.log(err))
   }
 
+  const [search, setSearch] = useState('')
+
 
   return (
     <div>
-
       <header aria-label="Page Header" className="bg-gray-50">
         <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
           <div className="flex items-center sm:justify-between sm:gap-4">
             <form onSubmit={handleSearch} className="relative hidden sm:block">
               <label className="sr-only" for="search"> Search </label>
 
-              <input name='searchText'
+              <input onChange={(e)=>{setSearch(e.target.value)}} name='searchText'
                 className="h-10 w-full rounded-lg border-none bg-white pl-4 pr-10 text-sm shadow-sm sm:w-56"
                 id="search"
                 type="search"
@@ -90,20 +92,11 @@ const Header = () => {
                 <label htmlFor="my-modal-3" className="   btn inline-block rounded border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500">Add new billing +</label>
 
               </div>
-              {/* <div>
-                <input type="checkbox" id="my-modal-3" className="modal-toggle" />
-                <div className="modal">
-                  <div className="modal-box relative">
-                    <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-                    <h3 className="text-lg font-bold">Fill new billing information</h3>
-                  </div>
-                </div>
-              </div> */}
             </div>
           </div>
         </div>
       </header>
-
+      {<BillingTable search={search.toLocaleLowerCase()} ></BillingTable>}
     </div>
   );
 };
