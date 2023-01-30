@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import BillingTable from "../../Page/Components/BillingTable/BillingTable";
+import Header from "../../Page/Components/Header/Header";
 import Main from "../../Page/Layout/Main";
 import Login from "../../Page/Login/Login";
 import Register from "../../Page/Register/Register";
@@ -21,6 +22,9 @@ export const router = createBrowserRouter([
                {
                 path:'/register',
                 element: <Register></Register>
+               },{
+                    path:'/header',
+                    element:<Header></Header>
                },
                {
                     path:'*',

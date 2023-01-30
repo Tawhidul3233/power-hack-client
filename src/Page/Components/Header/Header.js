@@ -6,17 +6,6 @@ import BillingTable from '../BillingTable/BillingTable';
 
 const Header = () => {
 
-
-  const handleSearch = (event)=>{
-    event.preventDefault()
-    console.log(event.target.searchText.value)
-    fetch(`http://localhost:5000/add-billing/${event.target.searchText.value}`)
-    .then(res => res.json())
-    .then(data => console.log(data))
-
-    .catch(err => console.log(err))
-  }
-
   const [search, setSearch] = useState('')
 
 
@@ -25,7 +14,7 @@ const Header = () => {
       <header aria-label="Page Header" className="bg-gray-50">
         <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
           <div className="flex items-center sm:justify-between sm:gap-4">
-            <form onSubmit={handleSearch} className="relative hidden sm:block">
+            <form  className="relative hidden sm:block">
               <label className="sr-only" for="search"> Search </label>
 
               <input onChange={(e)=>{setSearch(e.target.value)}} name='searchText'

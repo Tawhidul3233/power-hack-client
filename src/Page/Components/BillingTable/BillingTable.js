@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 import AddBillingModal from '../AddBillingModal/AddBillingModal';
 import Paiganition from '../Paiganition/Paiganition';
 
-const BillingTable = ({ search  }) => {
+const BillingTable = ({ search }) => {
   const [bills, setBills] = useState([])
+  const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -12,11 +15,11 @@ const BillingTable = ({ search  }) => {
 
   useEffect(() => {
     setLoading(true)
-    fetch('http://localhost:5000/billing-list')
+    fetch('http://localhost:5000/api/billing-list')
       .then(res => res.json())
       .then(data => setBills(data))
     setLoading(false)
-  }, [])
+  }, [bills])
 
   const indexOfLastPost = currentPage * postPerPage;
   const indexOfFirstPost = indexOfLastPost - postPerPage;
@@ -28,7 +31,7 @@ const BillingTable = ({ search  }) => {
   const deleteItem = (id) => {
     const agree = window.confirm(" Are You sure you wnat to delete?")
     if (agree) {
-      fetch(`http://localhost:5000/delete-billing/${id}`,
+      fetch(`http://localhost:5000/api/delete-billing/${id}`,
         {
           method: 'DELETE',
         })
@@ -67,21 +70,22 @@ const BillingTable = ({ search  }) => {
             currentPost.filter((bill) => {
               return search === ' ' ? bill : bill.name.toLowerCase().includes(search) || bill.email.toLowerCase().includes(search) || bill.phone.includes(search)
             }).map(bill => <tr key={bill._id}>
-              <td>Billing id</td>
+              <td>{bill.billingId}</td>
               <td>{bill?.name}</td>
               <td>{bill?.email}</td>
               <td>{bill?.phone}</td>
               <td>{bill?.amount}$</td>
               <td className=''>
-                <label htmlFor="my-modal-3" className="btn btn-xs btn-outline bg-blue-600 text-white">Edit </label>
+                <lebel htmlFor="my-modal-3" className="btn btn-xs btn-outline bg-blue-600 text-white">Edit </lebel>
                 <button onClick={() => deleteItem(bill._id)} className='ml-2 btn btn-xs btn-outline bg-red-500 text-white'>Delete</button>
               </td>
             </tr>)
           }
+          <div>
+            <AddBillingModal paginate={paginate} > </AddBillingModal>
+          </div>
         </tbody>
-        <div>
-          <AddBillingModal paginate={paginate} > </AddBillingModal>
-        </div>
+
       </table>
       <div>
         <Paiganition postPerPage={postPerPage} totalPost={bills.length} paginate={paginate} > </Paiganition>

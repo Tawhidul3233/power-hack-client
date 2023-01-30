@@ -1,13 +1,46 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const navigate = useNavigate()
 
-  const handelregister = (data)=>{
-    console.log(data)
+  const handelregister = (data) => {
+    
+    const name = data.name;
+    const phone = data.phone
+    const amount = data.amount
+    const email = data.email
+
+    const bill = {
+      name,
+      email,
+    }
+
+    fetch('http://localhost:5000/api/registration', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      credentials:'include',
+      body: JSON.stringify(bill)
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        navigate('/login')
+        reset()
+        toast.success('Register successfully ')
+      })
+      .catch(error => {
+        console.log(error)
+        toast.error('Somthing wrong try again')
+      })
   }
+
+
   return (
     <div>
       <form onSubmit={handleSubmit(handelregister)} className=' w-2/5 mx-auto '>

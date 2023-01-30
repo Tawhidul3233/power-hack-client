@@ -10,7 +10,7 @@ const Paiganition = ({postPerPage, totalPost, paginate,number }) => {
   }
   return (
     <div className=' '>
-      <ul className='pagination flex my-10 mx-auto text-center justify-center   '>
+      <ul className='pagination flex my-10 justify-center   '>
         {
           pageNumber.map(number => (
             <li  key={number} className=' border-2  p-2 rounded-sm ml-1 text-blue-500 hover:bg-blue-500 hover:text-white '> 
