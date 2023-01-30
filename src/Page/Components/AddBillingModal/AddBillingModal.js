@@ -2,48 +2,49 @@ import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { Toaster,toast } from 'react-hot-toast';
 
-const AddBillingModal = ({register, reset, handleSubmit, errors, billSubmit}) => {
+const AddBillingModal = () => {
 
      // const [data, setdata] = useState([])
-     // const { register, handleSubmit, reset, formState: { errors } } = useForm();
+     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
-    
-console.log('dkjkdfjdkfjdfdf', handleSubmit, billSubmit,register)
-     // const billSubmit = (data) => {
-     //      reset()
-     //      console.log(data)
-     //      const name = data.name;
-     //      const phone = data.phone
-     //      const amount = data.amount
-     //      const email = data.email
+     const [another, setAnother] = useState(false)
+     
 
-     //      const bill = {
-     //           name,
-     //           phone,
-     //           email,
-     //           amount
-     //      }
+     const billSubmit = (data) => {
+          setAnother(true)
+          reset()
+          console.log(data)
+          const name = data.name;
+          const phone = data.phone
+          const amount = data.amount
+          const email = data.email
 
-     //      fetch('http://localhost:5000/add-billing', {
-     //           method: 'POST',
-     //           headers: {
-     //                'content-type': 'application/json'
-     //           },
-     //           body: JSON.stringify(bill)
-     //      })
-     //           .then(res => res.json())
-     //           .then(data => {
-     //                console.log(data)
-                    
-     //                toast.success('Bill successfully added')
+          const bill = {
+               name,
+               phone,
+               email,
+               amount
+          }
 
-     //           })
-     //           .catch(error => {
-     //                console.log(error)
-     //                toast.error('Somthing wrong try again')
-     //           })
+          fetch('http://localhost:5000/add-billing', {
+               method: 'POST',
+               headers: {
+                    'content-type': 'application/json'
+               },
+               body: JSON.stringify(bill)
+          })
+               .then(res => res.json())
+               .then(data => {
+                    console.log(data)
+                    toast.success('Bill successfully added')
+
+               })
+               .catch(error => {
+                    console.log(error)
+                    toast.error('Somthing wrong try again')
+               })
          
-     // }
+     }
 
 
 
@@ -53,8 +54,11 @@ console.log('dkjkdfjdkfjdfdf', handleSubmit, billSubmit,register)
                <div className="modal">
                     <div className="modal-box relative">
                          <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-                         <h3 className="text-lg font-bold my-5">Fill new billing information</h3>
-                         <form onSubmit={handleSubmit(billSubmit)}>
+                         <h3 className="text-lg font-bold my-5">Fill new billing information</h3>{
+                              another === true &&  <p className='my-2 text-success text-lg font-semibold'>Add another bill</p>
+                         }
+                        
+                         <form onFocus={()=>setAnother(false)} onSubmit={handleSubmit(billSubmit)}>
                               <div className='border rounded-md'>
                                    <div class="relative">
                                         <input

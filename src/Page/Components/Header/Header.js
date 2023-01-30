@@ -6,64 +6,15 @@ import AddBillingModal from '../AddBillingModal/AddBillingModal';
 const Header = () => {
 
 
-
-
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
-console.log( register, handleSubmit, reset)
-    
-
-  const billSubmit = (data) => {
-       reset()
-       console.log(data)
-       const name = data.name;
-       const phone = data.phone
-       const amount = data.amount
-       const email = data.email
-
-       const bill = {
-            name,
-            phone,
-            email,
-            amount
-       }
-
-       fetch('http://localhost:5000/add-billing', {
-            method: 'POST',
-            headers: {
-                 'content-type': 'application/json'
-            },
-            body: JSON.stringify(bill)
-       })
-            .then(res => res.json())
-            .then(data => {
-                 console.log(data)
-                 
-                //  toast.success('Bill successfully added')
-
-            })
-            .catch(error => {
-                 console.log(error)
-                //  toast.error('Somthing wrong try again')
-            })
-      
-  }
-
-
-
-
-
   const handleSearch = (event)=>{
     event.preventDefault()
     console.log(event.target.searchText.value)
-    fetch(`http://localhost:5000/add-billing?searchText=${event.target.searchText.value}`)
+    fetch(`http://localhost:5000/add-billing/${event.target.searchText.value}`)
     .then(res => res.json())
     .then(data => console.log(data))
 
     .catch(err => console.log(err))
   }
-
-
-
 
 
   return (
@@ -134,7 +85,7 @@ console.log( register, handleSubmit, reset)
                 type="button"
                 className="group flex shrink-0 items-center rounded-lg transition"
               >
-                <AddBillingModal register={register} handleSubmit={handleSubmit} reset={reset} errors ={errors} billSubmit={billSubmit}>
+                <AddBillingModal>
                 </AddBillingModal>
                 <label htmlFor="my-modal-3" className="   btn inline-block rounded border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500">Add new billing +</label>
 

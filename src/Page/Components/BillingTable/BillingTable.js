@@ -10,7 +10,7 @@ const BillingTable = () => {
     fetch('http://localhost:5000/billing-list')
       .then(res => res.json())
       .then(data => setBills(data))
-  }, [])
+  }, [bills])
 
   const deleteItem = (id) => {
     const agree = window.confirm(" Are You sure you wnat to delete?")
@@ -36,7 +36,7 @@ const BillingTable = () => {
   }
   return (
     <div className="overflow-x-auto">
-      
+
       <table className="table table-compact w-full">
         <thead>
           <tr>
@@ -50,7 +50,7 @@ const BillingTable = () => {
         </thead>
         <tbody>
           {
-        
+
             bills.map(bill => <tr key={bill._id}>
               <td>Billing id</td>
               <td>{bill?.name}</td>
@@ -58,12 +58,15 @@ const BillingTable = () => {
               <td>{bill?.phone}</td>
               <td>{bill?.amount}$</td>
               <td className=''>
-                <label htmlFor="my-modal-3" className="btn btn-xs btn-outline bg-blue-600 text-white">Edit <AddBillingModal data={bill}></AddBillingModal> </label>
+                <label htmlFor="my-modal-3" className="btn btn-xs btn-outline bg-blue-600 text-white">Edit </label>
                 <button onClick={() => deleteItem(bill._id)} className='ml-2 btn btn-xs btn-outline bg-red-500 text-white'>Delete</button>
               </td>
             </tr>)
           }
         </tbody>
+        <div>
+          <AddBillingModal> </AddBillingModal>
+        </div>
       </table>
     </div>
   );
