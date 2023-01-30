@@ -1,19 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import AddBillingModal from '../AddBillingModal/AddBillingModal';
+import Paiganition from '../Paiganition/Paiganition';
 
-const BillingTable = ({ search }) => {
-  
-  console.log(search)
-
+const BillingTable = ({ search  }) => {
   const [bills, setBills] = useState([])
 
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage] = useState(10);
+
   useEffect(() => {
+    setLoading(true)
     fetch('http://localhost:5000/billing-list')
       .then(res => res.json())
       .then(data => setBills(data))
+    setLoading(false)
   }, [])
 
+  const indexOfLastPost = currentPage * postPerPage;
+  const indexOfFirstPost = indexOfLastPost - postPerPage;
+  const currentPost = bills.slice(indexOfFirstPost, indexOfLastPost);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
 
   const deleteItem = (id) => {
@@ -55,7 +64,7 @@ const BillingTable = ({ search }) => {
         <tbody>
           {
 
-            bills.filter((bill) => {
+            currentPost.filter((bill) => {
               return search === ' ' ? bill : bill.name.toLowerCase().includes(search) || bill.email.toLowerCase().includes(search) || bill.phone.includes(search)
             }).map(bill => <tr key={bill._id}>
               <td>Billing id</td>
@@ -71,9 +80,12 @@ const BillingTable = ({ search }) => {
           }
         </tbody>
         <div>
-          <AddBillingModal> </AddBillingModal>
+          <AddBillingModal paginate={paginate} > </AddBillingModal>
         </div>
       </table>
+      <div>
+        <Paiganition postPerPage={postPerPage} totalPost={bills.length} paginate={paginate} > </Paiganition>
+      </div>
     </div>
   );
 };

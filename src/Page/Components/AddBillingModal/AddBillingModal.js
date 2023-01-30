@@ -37,7 +37,6 @@ const AddBillingModal = () => {
                .then(data => {
                     console.log(data)
                     toast.success('Bill successfully added')
-
                })
                .catch(error => {
                     console.log(error)

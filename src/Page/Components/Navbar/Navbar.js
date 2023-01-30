@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
 
@@ -32,12 +33,12 @@ const Navbar = () => {
                                         </p>
                                    </div>
                                    <div className="sm:flex sm:gap-4">
-                                        <a
+                                        <Link
                                              className="rounded-md bg-green-700 px-5 py-2.5 text-sm font-medium text-white shadow"
-                                             href="/"
+                                             to="/login"
                                         >
                                              Login
-                                        </a>
+                                        </Link>
                                    </div>
                               </div>
                          </div>
