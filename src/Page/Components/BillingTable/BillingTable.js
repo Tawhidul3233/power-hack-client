@@ -3,13 +3,19 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import AddBillingModal from '../AddBillingModal/AddBillingModal';
+import DeleteModal from '../De;eteModal/DeleteModal';
 import Paiganition from '../Paiganition/Paiganition';
+import UpdateBillingModal from '../UpdateBillingModal/UpdateBillingModal';
 
-const BillingTable = ({ search }) => {
+const BillingTable = ({ search, error, billingId }) => {
   const [bills, setBills] = useState([])
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  // const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
-  const [loading, setLoading] = useState(false);
+  
+  // this state use update and delete opration
+  const [updateBill, setUpdateBill] = useState({})
+
+  const [loading, setLoading] = useState(false)
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage] = useState(10);
 
@@ -30,29 +36,6 @@ const BillingTable = ({ search }) => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
 
-  // Delete click Handler and delete bills
-  const deleteItem = (id) => {
-    const agree = window.confirm(" Are You sure you wnat to delete?")
-    if (agree) {
-      fetch(`https://power-hack-server-green.vercel.app/api/delete-billing/${id}`,
-        {
-          method: 'DELETE',
-        })
-        .then(res => res.json())
-        .then(data => {
-          console.log(data)
-          toast.success('Bill successfully Deleted')
-        })
-        .catch(error => {
-          console.log(error)
-          toast.error('Somthing wrong try again')
-        })
-
-    }
-
-
-
-  }
   return (
     <div className="overflow-x-auto">
 
@@ -71,21 +54,31 @@ const BillingTable = ({ search }) => {
           {
 
             currentPost.filter((bill) => {
-              return search === ' ' ? bill : bill.name.toLowerCase().includes(search) || bill.email.toLowerCase().includes(search) || bill.phone.includes(search)
+              return search === ' ' ? bill : bill?.name?.toLowerCase().includes(search) || bill?.email?.toLowerCase().includes(search) || bill?.phone?.includes(search)
             }).map(bill => <tr key={bill._id}>
-              <td>{bill.billingId}</td>
+              <td>
+                {loading && <p>Generating Id...</p>}
+                {error && <p>Error: {error}</p>}
+                {billingId && <p> {billingId}</p>}
+                {bill.billingId}
+
+              </td>
               <td>{bill?.name}</td>
               <td>{bill?.email}</td>
               <td>{bill?.phone}</td>
               <td>{bill?.amount}$</td>
               <td className=''>
-                <lebel htmlFor="my-modal-3" className="btn btn-xs btn-outline bg-blue-600 text-white">Edit </lebel>
-                <button onClick={() => deleteItem(bill._id)} className='ml-2 btn btn-xs btn-outline bg-red-500 text-white'>Delete</button>
+                <label htmlFor="update-modal" className="btn btn-xs btn-outline bg-blue-600 text-white" onClick={() => { setUpdateBill(bill) }}>Edit </label>
+                <label htmlFor="delete-modal" className='ml-2 btn btn-xs btn-outline bg-red-500 text-white' onClick={() => setUpdateBill(bill)}>Delete
+                  {/* onClick={() => deleteItem(bill._id)} */}
+                </label>
               </td>
             </tr>)
           }
           <div>
             <AddBillingModal paginate={paginate} > </AddBillingModal>
+            <DeleteModal bill={updateBill} > </DeleteModal>
+            <UpdateBillingModal bill={updateBill}> </UpdateBillingModal>
           </div>
         </tbody>
 

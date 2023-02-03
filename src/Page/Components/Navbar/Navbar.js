@@ -11,7 +11,8 @@ const Navbar = () => {
      }, [bills])
 
      // Total paid amoutn sum
-     const sum = bills.reduce((total, current) => total + parseInt(current.amount), 0);
+     const sum = bills.reduce((total, current) => total + (+current.amount), 0);
+     // const sum = bills.reduce((total, current) =>  console.log(total, typeof(current.amount)),0);
 
      return (
           <div className=''>
@@ -41,14 +42,7 @@ const Navbar = () => {
                                              Login
                                         </Link>
                                    </div>
-                                   <div className="sm:flex sm:gap-4">
-                                        <Link
-                                             className="rounded-md bg-green-700 px-5 py-2.5 text-sm font-medium text-white shadow"
-                                             to="/header"
-                                        >
-                                             Table
-                                        </Link>
-                                   </div>
+                                   
                               </div>
                          </div>
                     </div>

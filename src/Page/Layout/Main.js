@@ -7,7 +7,6 @@ import Navbar from '../Components/Navbar/Navbar';
 const Main = () => {
   return (
     <div>
-      {/* This is main page  */}
       <Navbar></Navbar>
       <Outlet></Outlet>
     </div>

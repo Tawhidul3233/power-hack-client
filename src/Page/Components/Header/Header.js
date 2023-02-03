@@ -8,7 +8,7 @@ const Header = () => {
 
   // This is the header page create search bar and add bill button
   const [search, setSearch] = useState('')
-
+  const [openM ,setOpenM] = useState(true)
 
   return (
     <div>
@@ -77,9 +77,10 @@ const Header = () => {
                 type="button"
                 className="group flex shrink-0 items-center rounded-lg transition"
               >
-                <AddBillingModal>
+                <AddBillingModal openM={openM} setOpenM={setOpenM}>
                 </AddBillingModal>
-                <label htmlFor="my-modal-3" className="   btn inline-block rounded border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500">Add new billing +</label>
+                
+                 <label htmlFor="bill-modal" className="   btn inline-block rounded border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500">Add new billing +</label>
 
               </div>
             </div>

@@ -1,5 +1,4 @@
 import { createBrowserRouter } from "react-router-dom";
-import BillingTable from "../../Page/Components/BillingTable/BillingTable";
 import Header from "../../Page/Components/Header/Header";
 import Main from "../../Page/Layout/Main";
 import Login from "../../Page/Login/Login";
@@ -14,7 +13,7 @@ export const router = createBrowserRouter([
           children: [
                {
                     path:'/',
-                    element:<BillingTable> </BillingTable>
+                    element:<Header></Header>
                },
                {
                 path:'/login',
@@ -23,9 +22,6 @@ export const router = createBrowserRouter([
                {
                 path:'/register',
                 element: <Register></Register>
-               },{
-                    path:'/header',
-                    element:<Header></Header>
                },
                {
                     // This is the error page if user click wrong link than this page show
